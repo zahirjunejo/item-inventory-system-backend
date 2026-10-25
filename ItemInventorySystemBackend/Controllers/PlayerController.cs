@@ -22,6 +22,21 @@ namespace ItemInventorySystemBackend.Controllers
         public async Task<ActionResult<List<Player>>> GetPlayers()
         {
             return Ok(_players);
-        }   
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Player>> GetPlayer(int id)
+        {
+            var player = _players.FirstOrDefault(p => p.Id == id);
+            if (player == null) return NotFound();
+            return Ok(player);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Player>> CreatePlayer(Player player)
+        {
+            _players.Add(player);
+            return Ok(_players);
+        }
     }
 }

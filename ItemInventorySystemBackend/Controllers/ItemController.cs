@@ -12,7 +12,7 @@ namespace ItemInventorySystemBackend.Controllers
     [ApiController]
     public class ItemController : ControllerBase
     {
-        private List<Item>  _items = new List<Item>
+        private static List<Item>  _items = new List<Item>
         {
             new Item { Id = 1, Name = "Bandage", PlayerId = 1},
             new Item { Id = 2, Name = "Pills", PlayerId = 1},
@@ -25,6 +25,21 @@ namespace ItemInventorySystemBackend.Controllers
         {
             return Ok(_items);
         }
-        
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Item>> GetItem(int id)
+        {
+            var item = _items.FirstOrDefault(i => i.Id == id);
+            if (item == null) return NotFound();
+
+            return Ok(item);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Item>> CreateItem(Item item)
+        {
+            _items.Add(item);
+            return Ok(_items);
+        }
     }
 }
