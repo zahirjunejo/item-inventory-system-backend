@@ -36,7 +36,7 @@ namespace ItemInventorySystemBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Item>> CreateItem(Item item)
+        public async Task<ActionResult<List<Item>>> CreateItem(Item item)
         {
             _items.Add(item);
             return Ok(_items);

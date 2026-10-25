@@ -32,8 +32,24 @@ namespace ItemInventorySystemBackend.Controllers
             return Ok(player);
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<List<Player>>> UpdatePlayer(int id, Player body)
+        {
+            var player = _players.FirstOrDefault(p => p.Id == id);
+            if (player == null) return NotFound();
+
+            player.Budget = body.Budget;
+            player.Email = body.Email ?? player.Email;
+            player.FirstName = body.FirstName ?? player.FirstName;
+            player.LastName = body.LastName ?? player.LastName;
+            player.UserName = body.UserName ?? player.UserName;
+            player.Password = body.Password ?? player.Password;
+            
+            return Ok(_players);
+        }
+        
         [HttpPost]
-        public async Task<ActionResult<Player>> CreatePlayer(Player player)
+        public async Task<ActionResult<List<Player>>> CreatePlayer(Player player)
         {
             _players.Add(player);
             return Ok(_players);
