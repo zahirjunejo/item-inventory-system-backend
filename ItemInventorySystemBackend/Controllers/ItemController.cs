@@ -26,6 +26,17 @@ namespace ItemInventorySystemBackend.Controllers
             return Ok(_items);
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<List<Item>>> UpdateItem(int id, Item body)
+        {
+            var item = _items.FirstOrDefault(i => i.Id == id);
+            if (item == null) return NotFound();
+
+            item.Name = body.Name ?? item.Name;
+
+            return Ok(_items);
+        }
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<Item>> GetItem(int id)
         {
