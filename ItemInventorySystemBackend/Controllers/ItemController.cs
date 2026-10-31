@@ -37,6 +37,17 @@ namespace ItemInventorySystemBackend.Controllers
             return Ok(_items);
         }
         
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<List<Item>>> DeleteItem(int id)
+        {
+            var item = _items.FirstOrDefault(i => i.Id == id);
+            if (item == null) return NotFound();
+
+            _items.Remove(item);
+
+            return Ok(_items);
+        }
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<Item>> GetItem(int id)
         {
