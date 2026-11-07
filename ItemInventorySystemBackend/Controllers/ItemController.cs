@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ItemInventorySystemBackend.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,56 +12,55 @@ namespace ItemInventorySystemBackend.Controllers
     [ApiController]
     public class ItemController : ControllerBase
     {
-        private static List<Item>  _items = new List<Item>
+        private readonly IItemService _itemService;
+        
+        public ItemController(IItemService itemServices)
         {
-            new Item { Id = 1, Name = "Bandage", PlayerId = 1},
-            new Item { Id = 2, Name = "Pills", PlayerId = 1},
-            new Item { Id = 3, Name = "First Aid Kit", PlayerId = 2},
-            new Item { Id = 4, Name = "Mask", PlayerId = 2},
-        };
-
+            this._itemService = itemServices;
+        }
+        
         [HttpGet]
         public async Task<ActionResult<List<Item>>> GetItems()
         {
-            return Ok(_items);
+            return Ok(_itemService.GetItems());
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<List<Item>>> UpdateItem(int id, Item body)
-        {
-            var item = _items.FirstOrDefault(i => i.Id == id);
-            if (item == null) return NotFound();
-
-            item.Name = body.Name ?? item.Name;
-
-            return Ok(_items);
-        }
+        // [HttpPut("{id}")]
+        // public async Task<ActionResult<List<Item>>> UpdateItem(int id, Item body)
+        // {
+        //     var item = _items.FirstOrDefault(i => i.Id == id);
+        //     if (item == null) return NotFound();
+        //
+        //     item.Name = body.Name ?? item.Name;
+        //
+        //     return Ok(_items);
+        // }
         
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Item>>> DeleteItem(int id)
-        {
-            var item = _items.FirstOrDefault(i => i.Id == id);
-            if (item == null) return NotFound();
-
-            _items.Remove(item);
-
-            return Ok(_items);
-        }
+        // [HttpDelete("{id}")]
+        // public async Task<ActionResult<List<Item>>> DeleteItem(int id)
+        // {
+        //     var item = _items.FirstOrDefault(i => i.Id == id);
+        //     if (item == null) return NotFound();
+        //
+        //     _items.Remove(item);
+        //
+        //     return Ok(_items);
+        // }
         
         [HttpGet("{id}")]
         public async Task<ActionResult<Item>> GetItem(int id)
         {
-            var item = _items.FirstOrDefault(i => i.Id == id);
-            if (item == null) return NotFound();
-
+            var item = _itemService.GetItem(id);
+            if (item == null) return NotFound("Item not found.");
+        
             return Ok(item);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<List<Item>>> CreateItem(Item item)
-        {
-            _items.Add(item);
-            return Ok(_items);
-        }
+        // [HttpPost]
+        // public async Task<ActionResult<List<Item>>> CreateItem(Item item)
+        // {
+        //     _items.Add(item);
+        //     return Ok(_items);
+        // }
     }
 }

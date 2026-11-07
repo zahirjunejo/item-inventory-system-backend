@@ -1,10 +1,19 @@
 namespace ItemInventorySystemBackend.Services;
 
-public class ItemServices : IItemServices
+public class ItemServices : IItemService
 {
+    
+    private static List<Item>  _items = new List<Item>
+    {
+        new Item { Id = 1, Name = "Bandage", PlayerId = 1},
+        new Item { Id = 2, Name = "Pills", PlayerId = 1},
+        new Item { Id = 3, Name = "First Aid Kit", PlayerId = 2},
+        new Item { Id = 4, Name = "Mask", PlayerId = 2},
+    };
+    
     public List<Item> GetItems()
     {
-        throw new NotImplementedException();
+        return _items;
     }
 
     public List<Item> UpdateItem(int id, Item body)
@@ -17,9 +26,12 @@ public class ItemServices : IItemServices
         throw new NotImplementedException();
     }
 
-    public Item GetItem(int id)
+    public Item? GetItem(int id)
     {
-        throw new NotImplementedException();
+        var item = _items.FirstOrDefault(i => i.Id == id);
+        if (item == null) return null;
+        
+        return item;
     }
 
     public List<Item> CreateItem(Item item)
