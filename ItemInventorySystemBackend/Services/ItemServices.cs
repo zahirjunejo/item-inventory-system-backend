@@ -11,7 +11,7 @@ public class ItemServices : IItemService
         new Item { Id = 4, Name = "Mask", PlayerId = 2},
     };
     
-    public List<Item> GetItems()
+    public List<Item>? GetItems()
     {
         return _items;
     }

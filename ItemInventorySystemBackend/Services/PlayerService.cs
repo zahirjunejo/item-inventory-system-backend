@@ -9,7 +9,7 @@ public class PlayerService : IPlayerService
         new Player {Id = 2, Budget = 10000, Email="rehab.room@gmail.com", FirstName = "Oh", LastName = "Rehab", Password = "rehabroom", UserName = "rehabroom"}
     };
     
-    public List<Player> GetPlayers()
+    public List<Player>? GetPlayers()
     {
         return _players;
     }
