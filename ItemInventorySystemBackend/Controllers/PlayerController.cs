@@ -41,16 +41,14 @@ namespace ItemInventorySystemBackend.Controllers
             return Ok(_players);
         }
         
-        // [HttpDelete("{id}")]
-        // public async Task<ActionResult<List<Player>>> DeletePlayer(int id)
-        // {
-        //     var player = _players.FirstOrDefault(p => p.Id == id);
-        //     if (player == null) return NotFound();
-        //     
-        //     _players.Remove(player);
-        //     
-        //     return Ok(_players);
-        // }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<List<Player>>> DeletePlayer(int id)
+        {
+            var _players = _playerService.DeletePlayer(id);
+            if (_players == null) return NotFound("No such player exists.");
+            
+            return Ok(_players);
+        }
         
         // [HttpPost]
         // public async Task<ActionResult<List<Player>>> CreatePlayer(Player player)

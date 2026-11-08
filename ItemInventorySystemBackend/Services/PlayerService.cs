@@ -36,9 +36,14 @@ public class PlayerService : IPlayerService
         return _players;
     }
 
-    public List<Player> DeletePlayer(int id)
+    public List<Player>? DeletePlayer(int id)
     {
-        throw new NotImplementedException();
+        var player = _players.FirstOrDefault(p => p.Id == id);
+        if (player == null) return null;
+            
+        _players.Remove(player);
+            
+        return _players;
     }
 
     public List<Player> CreatePlayer(Player player)
