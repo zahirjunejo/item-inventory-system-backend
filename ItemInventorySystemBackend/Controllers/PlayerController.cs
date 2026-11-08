@@ -32,21 +32,14 @@ namespace ItemInventorySystemBackend.Controllers
             return Ok(player);
         }
 
-        // [HttpPut("{id}")]
-        // public async Task<ActionResult<List<Player>>> UpdatePlayer(int id, Player body)
-        // {
-        //     var player = _players.FirstOrDefault(p => p.Id == id);
-        //     if (player == null) return NotFound();
-        //
-        //     player.Budget = body.Budget;
-        //     player.Email = body.Email ?? player.Email;
-        //     player.FirstName = body.FirstName ?? player.FirstName;
-        //     player.LastName = body.LastName ?? player.LastName;
-        //     player.UserName = body.UserName ?? player.UserName;
-        //     player.Password = body.Password ?? player.Password;
-        //     
-        //     return Ok(_players);
-        // }
+        [HttpPut("{id}")]
+        public async Task<ActionResult<List<Player>>> UpdatePlayer(int id, Player body)
+        {
+            var _players = _playerService.UpdatePlayer(id, body);
+            if (_players == null) return NotFound("No such player exists.");
+        
+            return Ok(_players);
+        }
         
         // [HttpDelete("{id}")]
         // public async Task<ActionResult<List<Player>>> DeletePlayer(int id)
