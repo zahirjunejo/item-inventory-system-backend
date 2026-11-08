@@ -34,16 +34,14 @@ namespace ItemInventorySystemBackend.Controllers
             return Ok(items);
         }
         
-        // [HttpDelete("{id}")]
-        // public async Task<ActionResult<List<Item>>> DeleteItem(int id)
-        // {
-        //     var item = _items.FirstOrDefault(i => i.Id == id);
-        //     if (item == null) return NotFound();
-        //
-        //     _items.Remove(item);
-        //
-        //     return Ok(_items);
-        // }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<List<Item>>> DeleteItem(int id)
+        {
+            var items = _itemService.DeleteItem(id);
+            if (items == null) return NotFound("No such item exists.");
+            
+            return Ok(items);
+        }
         
         [HttpGet("{id}")]
         public async Task<ActionResult<Item>> GetItem(int id)
@@ -54,11 +52,11 @@ namespace ItemInventorySystemBackend.Controllers
             return Ok(item);
         }
 
-        // [HttpPost]
-        // public async Task<ActionResult<List<Item>>> CreateItem(Item item)
-        // {
-        //     _items.Add(item);
-        //     return Ok(_items);
-        // }
+        [HttpPost]
+        public async Task<ActionResult<List<Item>>> CreateItem(Item item)
+        {
+            var items = _itemService.CreateItem(item);
+            return Ok(items);
+        }
     }
 }

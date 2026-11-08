@@ -26,9 +26,14 @@ public class ItemServices : IItemService
         return _items;
     }
 
-    public List<Item> DeleteItem(int id)
+    public List<Item>? DeleteItem(int id)
     {
-        throw new NotImplementedException();
+        var item = _items.FirstOrDefault(i => i.Id == id);
+        if (item == null) return null;
+        
+        _items.Remove(item);
+        
+        return _items;
     }
 
     public Item? GetItem(int id)
@@ -41,6 +46,7 @@ public class ItemServices : IItemService
 
     public List<Item> CreateItem(Item item)
     {
-        throw new NotImplementedException();
+        _items.Add(item);
+        return _items;
     }
 }
