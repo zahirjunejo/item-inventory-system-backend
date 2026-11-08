@@ -50,11 +50,11 @@ namespace ItemInventorySystemBackend.Controllers
             return Ok(_players);
         }
         
-        // [HttpPost]
-        // public async Task<ActionResult<List<Player>>> CreatePlayer(Player player)
-        // {
-        //     _players.Add(player);
-        //     return Ok(_players);
-        // }
+        [HttpPost]
+        public async Task<ActionResult<List<Player>>> CreatePlayer(Player player)
+        {
+            var _players = _playerService.CreatePlayer(player);
+            return Ok(_players);
+        }
     }
 }

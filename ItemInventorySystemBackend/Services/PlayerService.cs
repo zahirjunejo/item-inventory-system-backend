@@ -48,6 +48,7 @@ public class PlayerService : IPlayerService
 
     public List<Player> CreatePlayer(Player player)
     {
-        throw new NotImplementedException();
+        _players.Add(player);
+        return _players;
     }
 }
