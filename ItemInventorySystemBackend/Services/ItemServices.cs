@@ -16,9 +16,14 @@ public class ItemServices : IItemService
         return _items;
     }
 
-    public List<Item> UpdateItem(int id, Item body)
+    public List<Item>? UpdateItem(int id, Item body)
     {
-        throw new NotImplementedException();
+        var item = _items.FirstOrDefault(i => i.Id == id);
+        if (item == null) return null;
+        
+        item.Name = body.Name ?? item.Name;
+        
+        return _items;
     }
 
     public List<Item> DeleteItem(int id)

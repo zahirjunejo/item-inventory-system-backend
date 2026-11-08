@@ -25,16 +25,14 @@ namespace ItemInventorySystemBackend.Controllers
             return Ok(_itemService.GetItems());
         }
 
-        // [HttpPut("{id}")]
-        // public async Task<ActionResult<List<Item>>> UpdateItem(int id, Item body)
-        // {
-        //     var item = _items.FirstOrDefault(i => i.Id == id);
-        //     if (item == null) return NotFound();
-        //
-        //     item.Name = body.Name ?? item.Name;
-        //
-        //     return Ok(_items);
-        // }
+        [HttpPut("{id}")]
+        public async Task<ActionResult<List<Item>>> UpdateItem(int id, Item body)
+        {
+            var items = _itemService.UpdateItem(id, body);
+            if (items == null) return NotFound("No such item exists.");
+        
+            return Ok(items);
+        }
         
         // [HttpDelete("{id}")]
         // public async Task<ActionResult<List<Item>>> DeleteItem(int id)
