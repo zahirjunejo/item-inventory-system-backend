@@ -1,4 +1,5 @@
 global using ItemInventorySystemBackend.Models;
+global using Microsoft.EntityFrameworkCore;
 using ItemInventorySystemBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
