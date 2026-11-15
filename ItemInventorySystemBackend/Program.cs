@@ -1,5 +1,6 @@
 global using ItemInventorySystemBackend.Models;
 global using Microsoft.EntityFrameworkCore;
+using ItemInventorySystemBackend.Data;
 using ItemInventorySystemBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IItemService, ItemServices>();
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 var app = builder.Build();
 
